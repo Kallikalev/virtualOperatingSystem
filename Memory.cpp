@@ -6,6 +6,8 @@
 #include <string>
 #include <iostream>
 
+#include "utils.cpp"
+
 Memory::Memory(uint32_t size) {
     data = std::vector<uint32_t>(4);
 }
@@ -26,6 +28,6 @@ void Memory::set(uint32_t index, uint32_t val) {
 
 void Memory::dump() {
     for (uint32_t t : data) {
-        std::cout << t << std::endl;
+        std::cout << utils::intToHex(t) << std::endl;
     }
 }
