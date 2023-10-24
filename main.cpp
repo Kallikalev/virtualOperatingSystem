@@ -3,21 +3,23 @@
 //
 
 #include <iostream>
+#include <list>
 #include "Memory.h"
 #include "utils.cpp"
+#include "Loader.h"
+#include "PCB.h"
 
 int main() {
-    Memory ram(4);
-    std::cout << std::to_string(ram.get(2)) << std::endl;
-    ram.set(2,2);
-    ram.dump();
-    std::cout << std::to_string(ram.get(2)) << std::endl;
+    Memory disk(40);
+    std::cout << "Disk before:" << std::endl;
+    disk.dump();
 
-    std::string tester("f0f0f0f0");
-    std::cout << "Decimal: " << utils::hexToInt(tester) << std::endl;
-    std::cout << "Binary: " << std::bitset<32>(utils::hexToInt(tester)) << std::endl;
+    std::list<PCB> pcbList;
 
-    std::cout << "Hex: " + utils::intToHex(utils::hexToInt(tester));
+    Loader::load("testJobs.txt", &disk, &pcbList);
+
+    std::cout << "Disk after:" << std::endl;
+    disk.dump();
 
     return 0;
 }

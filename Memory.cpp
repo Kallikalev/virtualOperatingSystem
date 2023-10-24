@@ -9,7 +9,7 @@
 #include "utils.cpp"
 
 Memory::Memory(uint32_t size) {
-    data = std::vector<uint32_t>(4);
+    data = std::vector<uint32_t>(size);
 }
 
 uint32_t Memory::get(uint32_t index) {

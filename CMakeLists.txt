@@ -8,4 +8,4 @@ include_directories(.)
 add_executable(virtualOperatingSystem
         main.cpp
         Memory.h
-        Memory.cpp utils.cpp)
+        Memory.cpp utils.cpp Registers.cpp Registers.h Loader.cpp Loader.h PCB.h)
