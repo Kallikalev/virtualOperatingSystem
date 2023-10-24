@@ -29,5 +29,17 @@ public:
         }
         return result;
     }
+
+    static std::vector<std::string> splitString(std::string s, const std::string& delimiter) {
+        std::vector<std::string> ret;
+        while (s.find(delimiter) != -1) {
+            ret.push_back(s.substr(0,s.find(delimiter)));
+            s = s.substr(s.find(delimiter) + delimiter.length());
+        }
+        if (!s.empty()) {
+            ret.push_back(s);
+        }
+        return ret;
+    }
 };
 
