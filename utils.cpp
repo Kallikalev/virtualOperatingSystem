@@ -13,6 +13,7 @@ private:
 
 public:
     static uint32_t hexToInt(std::string input) {
+        input.insert(input.begin(), 8 - input.length(), '0'); // pad with zeroes until length 8
         uint32_t result = 0;
         for (int i = 0; i < 8; i++) { // process characters left to right
             result <<= 4;
