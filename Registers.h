@@ -17,7 +17,7 @@ public:
 	void setAcc(uint32_t x);
 	void setGenReg(uint32_t x, int index);
 private:
-	uint32_t regsisters[16];
+	uint32_t registers[16]{};
 };
 
 #endif
