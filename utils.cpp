@@ -41,5 +41,12 @@ public:
         }
         return ret;
     }
+
+    // get the bits from start to end (inclusive), shifted so start is at 0
+    // ex (in binary): getBits(001100, 2, 3) = 11
+    // ex (in decimal): getBits(12, 2, 3) = 3
+    static uint32_t getBits(uint32_t num, uint32_t start, uint32_t end) {
+        return (num >> start) % (1 << (end - start + 1)); // shift desired region to the beginning, then remove everything after
+    }
 };
 
