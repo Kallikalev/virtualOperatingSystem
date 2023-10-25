@@ -90,6 +90,9 @@ void Processor::execute(uint32_t opcode, std::vector<uint32_t> &args) {
         }
         case 0x05: {
             std::cout << "Executed instruction: ADD" << std::endl;
+            // source registers are held in first two arguments
+            uint32_t val = registers.getGenReg(args[0]) + registers.getGenReg(args[1]);
+            registers.setGenReg(args[2], val); // destination register is held in argument 2
             break;
         }
         case 0x06: {
@@ -114,6 +117,8 @@ void Processor::execute(uint32_t opcode, std::vector<uint32_t> &args) {
         }
         case 0x0B: {
             std::cout << "Executed instruction: MOVI" << std::endl;
+            // argument 0 is base register, argument 2 is data to be transferred, argument 1 is empty
+            registers.setGenReg(args[0],args[2]);
             break;
         }
         case 0x0C: {
@@ -179,5 +184,6 @@ void Processor::execute(uint32_t opcode, std::vector<uint32_t> &args) {
         default: {
             throw std::invalid_argument("Opcode: " + std::to_string(opcode) + " does not exist");
         }
+
     }
 }

@@ -20,7 +20,7 @@ int main() {
 
 //     Running CPU directly on disk, since scheduler and dispatcher don't exist yet
     Processor cpu(&disk);
-    for (int i = 0; i < 27; i++) {
+    for (int i = 0; i < 5; i++) {
         cpu.computeCycle();
     }
 
