@@ -8,18 +8,22 @@
 #include "utils.cpp"
 #include "Loader.h"
 #include "PCB.h"
+#include "Processor.h"
 
 int main() {
-    Memory disk(40);
-    std::cout << "Disk before:" << std::endl;
-    disk.dump();
+    Memory disk(50);
 
     std::list<PCB> pcbList;
 
     Loader::load("testJobs.txt", &disk, &pcbList);
 
-    std::cout << "Disk after:" << std::endl;
-    disk.dump();
+
+//     Running CPU directly on disk, since scheduler and dispatcher don't exist yet
+    Processor cpu(&disk);
+    for (int i = 0; i < 27; i++) {
+        cpu.computeCycle();
+    }
+
 
     return 0;
 }
