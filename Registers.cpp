@@ -30,22 +30,22 @@ uint32_t Registers::getIR() const {
     return indexRegister;
 }
 
-uint32_t Registers::getGenReg(int index) {
+uint32_t Registers::getGenReg(uint32_t index) {
     return registers[index];
 }
 
-void Registers::setPC(uint32_t x) {
-    programCounter = x;
+void Registers::setPC(uint32_t val) {
+    programCounter = val;
 }
 
-void Registers::setIR(uint32_t x) {
-    indexRegister = x;
+void Registers::setIR(uint32_t val) {
+    indexRegister = val;
 }
 
-void Registers::setAcc(uint32_t x) {
-    registers[0] = x;
+void Registers::setAcc(uint32_t val) {
+    registers[0] = val;
 }
 
-void Registers::setGenReg(uint32_t x, int index) {
-    registers[index] = x;
+void Registers::setGenReg(uint32_t index, uint32_t val) {
+    registers[index] = val;
 }
