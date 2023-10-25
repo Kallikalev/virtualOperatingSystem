@@ -1,46 +1,51 @@
 #include <cstdint>
 #include "Registers.h"
 
-	Registers::Registers() {
-		for (int x = 0; x < sizeof(registers) / sizeof(uint32_t); x++) {
-            registers[x] = 0;
-		}
-	}
+Registers::Registers() {
+    programCounter = 0;
+    indexRegister = 0;
+}
 
-	uint32_t Registers::getAcc() {
-		return registers[14];
-	}
+Registers::Registers(Registers &other) {
+    for (int i = 0; i < sizeof(registers) / sizeof(uint32_t); i++) {
+        registers[i] = other.getGenReg(i);
+    }
+    programCounter = other.getPC();
+    indexRegister = other.getIR();
+}
 
-	uint32_t Registers::get0Reg() {
-		return registers[12];
-	}
+uint32_t Registers::getAcc() {
+    return registers[0];
+}
 
-	uint32_t Registers::getPC() {
-		return registers[15];
-	}
+uint32_t Registers::get0Reg() {
+    return registers[1];
+}
 
-	uint32_t Registers::getIR() {
-		return registers[13];
-	}
+uint32_t Registers::getPC() const {
+    return programCounter;
+}
 
-	uint32_t Registers::getGenReg(int index) {
-		return registers[index];
-	}
+uint32_t Registers::getIR() const {
+    return indexRegister;
+}
 
-	void Registers::setPC(uint32_t x) {
-        registers[15] = x;
-	}
+uint32_t Registers::getGenReg(int index) {
+    return registers[index];
+}
 
-	void Registers::setIR(uint32_t x) {
-        registers[13] = x;
-	}
+void Registers::setPC(uint32_t x) {
+    programCounter = x;
+}
 
-	void Registers::setAcc(uint32_t x) {
-        registers[14] = x;
-	}
+void Registers::setIR(uint32_t x) {
+    indexRegister = x;
+}
 
-	void Registers::setGenReg(uint32_t x, int index) {
-		if ((index < 12) && (index >= 0)) {
-            registers[index] = x;
-		}
-	}
+void Registers::setAcc(uint32_t x) {
+    registers[0] = x;
+}
+
+void Registers::setGenReg(uint32_t x, int index) {
+    registers[index] = x;
+}
