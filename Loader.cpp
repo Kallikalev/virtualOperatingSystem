@@ -48,12 +48,13 @@ void Loader::load(const std::string& fileName, Memory *disk, std::list<PCB> *pcb
             tokenReadLoc++;
         }
 
-        PCB newPCB;
+
+        pcbList->emplace_back();
+        PCB newPCB = (*pcbList->end());
         newPCB.processId = jobId;
         newPCB.programSize = programSize;
         newPCB.priority = priority;
         newPCB.diskAddress = jobStartLoc;
-        pcbList->push_back(newPCB);
 
         jobStartLoc += programSize + inputSize + outputSize + temporarySize;
     }
