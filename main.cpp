@@ -11,7 +11,7 @@
 #include "Processor.h"
 
 int main() {
-    Memory disk(60);
+    Memory disk(50);
 
     std::list<PCB> pcbList;
 
@@ -20,10 +20,7 @@ int main() {
 
 //     Running CPU directly on disk, since scheduler and dispatcher don't exist yet
     Processor cpu(&disk);
-    bool halted = false;
-    while (!halted) {
-        halted = cpu.computeCycle();
-    }
+    while (!cpu.computeCycle());
 
 
     return 0;
