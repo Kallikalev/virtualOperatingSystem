@@ -138,14 +138,23 @@ void Processor::execute(uint32_t opcode, std::vector<uint32_t> &args) {
         }
         case 0x0C: {
             std::cout << "Executed instruction: ADDI" << std::endl;
+            // argument 0 is base register, argument 2 is data to be added, argument 1 is empty
+            uint32_t val = registers.getGenReg(args[0]) + args[2];
+            registers.setGenReg(args[0], val);
             break;
         }
         case 0x0D: {
             std::cout << "Executed instruction: MULI" << std::endl;
+            // argument 0 is base register, argument 2 is data to be multiplied, argument 1 is empty
+            uint32_t val = registers.getGenReg(args[0]) * args[2];
+            registers.setGenReg(args[0], val);
             break;
         }
         case 0x0E: {
             std::cout << "Executed instruction: DIVI" << std::endl;
+            // argument 0 is base register, argument 2 is data to be divided, argument 1 is empty
+            uint32_t val = registers.getGenReg(args[0]) / args[2];
+            registers.setGenReg(args[0], val);
             break;
         }
         case 0x0F: {
