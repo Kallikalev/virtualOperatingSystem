@@ -20,11 +20,11 @@ private:
     static void getUnconditionalArgs(uint32_t instruction, std::vector<uint32_t> &args);
     static void getIOArgs(uint32_t instruction, std::vector<uint32_t> &args);
 
-    void execute(uint32_t opcode, std::vector<uint32_t> &args);
+    bool execute(uint32_t opcode, std::vector<uint32_t> &args);
 
 public:
     explicit Processor(Memory* ramPtr);
-    void computeCycle();
+    bool computeCycle();
 
 };
 

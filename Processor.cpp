@@ -10,7 +10,7 @@ Processor::Processor(Memory *ramPtr) {
     ram = ramPtr;
 }
 
-void Processor::computeCycle() {
+bool Processor::computeCycle() {
     uint32_t instruction = ram->get(effectiveAddress(registers.getPC()));
     uint32_t type = utils::getBits(instruction, 30, 31);
     uint32_t opcode = utils::getBits(instruction, 24, 29);
@@ -37,7 +37,7 @@ void Processor::computeCycle() {
         }
     }
     registers.setPC(registers.getPC() + 1);
-    execute(opcode, args);
+    return execute(opcode, args);
 }
 
 uint32_t Processor::effectiveAddress(uint32_t addr) {
@@ -66,7 +66,7 @@ void Processor::getIOArgs(uint32_t instruction, std::vector<uint32_t> &args) {
     args.push_back(utils::getBits(instruction, 0, 15)); // address
 }
 
-void Processor::execute(uint32_t opcode, std::vector<uint32_t> &args) {
+bool Processor::execute(uint32_t opcode, std::vector<uint32_t> &args) {
     switch (opcode) {
         case 0x00: {
             std::cout << "Executed instruction: RD" << std::endl;
@@ -163,15 +163,19 @@ void Processor::execute(uint32_t opcode, std::vector<uint32_t> &args) {
         }
         case 0x10: {
             std::cout << "Executed instruction: SLT" << std::endl;
+            uint32_t val = registers.getGenReg(args[0]) < registers.getGenReg(args[1]); // Boolean condition returns 0 or 1
+            registers.setGenReg(args[2], val);
             break;
         }
         case 0x11: {
             std::cout << "Executed instruction: SLTI" << std::endl;
+            uint32_t val = registers.getGenReg(args[0]) < args[2]; // Boolean condition returns 0 or 1
+            registers.setGenReg(args[1], val);
             break;
         }
         case 0x12: {
             std::cout << "Executed instruction: HLT" << std::endl;
-            break;
+            return true;
         }
         case 0x13: {
             std::cout << "Executed instruction: NOP" << std::endl;
@@ -208,6 +212,6 @@ void Processor::execute(uint32_t opcode, std::vector<uint32_t> &args) {
         default: {
             throw std::invalid_argument("Opcode: " + std::to_string(opcode) + " does not exist");
         }
-
     }
+    return false;
 }
