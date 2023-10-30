@@ -121,7 +121,7 @@ bool Processor::execute(uint32_t opcode, std::vector<uint32_t> &args) {
         case 0x0A: {
             std::cout << "Executed instruction: OR" << std::endl;
             uint32_t val = registers.getGenReg(args[1]) | registers.getGenReg(args[2]);
-            registers.setGenReg(args[2], val);
+            registers.setGenReg(args[0], val);
             break;
         }
         case 0x0B: {
