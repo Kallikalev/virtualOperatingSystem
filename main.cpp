@@ -22,6 +22,7 @@ int main() {
     Processor cpu(&disk);
     while (!cpu.computeCycle());
 
+    std::cout << "Sum of int array: " << disk.get(17) << std::endl;
 
     return 0;
 }
