@@ -96,6 +96,7 @@ bool Processor::execute(uint32_t opcode, std::vector<uint32_t> &args) {
         }
         case 0x04: {
             std::cout << "Executed instruction: MOV" << std::endl;
+            registers.setGenReg(args[0],registers.getGenReg(args[1]));
             break;
         }
         case 0x05: {
