@@ -10,8 +10,16 @@
 #include "Registers.h"
 
 struct PCB {
+    PCB(uint32_t newProcessId, uint32_t newSize, Registers newRegisters, uint32_t newPriority, uint32_t newDiskAddress) {
+        processId = newProcessId;
+        size = newSize;
+        registers = newRegisters;
+        priority = newPriority;
+        diskAddress = newDiskAddress;
+    }
+
     uint32_t processId{};
-    uint32_t programSize{};
+    uint32_t size{};
     Registers registers;
     uint32_t priority{};
     uint32_t diskAddress{};

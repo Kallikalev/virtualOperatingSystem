@@ -8,7 +8,7 @@
 #include <sstream>
 #include "utils.cpp"
 
-void Loader::load(const std::string& fileName, Memory *disk, std::list<PCB> *pcbList) {
+void Loader::load(const std::string& fileName, Memory& disk, std::vector<PCB>& pcbList) {
     std::vector<std::vector<std::string>> tokens;
 
     // split up lines and load them into tokens
@@ -35,7 +35,7 @@ void Loader::load(const std::string& fileName, Memory *disk, std::list<PCB> *pcb
         uint32_t priority = utils::hexToInt(jobHeader[4]);
         tokenReadLoc++;
         for (int j = 0; j < programSize; j++) {
-            disk->set(jobStartLoc + j,utils::hexToInt(tokens[tokenReadLoc][0]));
+            disk.set(jobStartLoc + j,utils::hexToInt(tokens[tokenReadLoc][0]));
             tokenReadLoc++;
         }
         std::vector<std::string> dataHeader = tokens[tokenReadLoc];
@@ -44,18 +44,15 @@ void Loader::load(const std::string& fileName, Memory *disk, std::list<PCB> *pcb
         uint32_t temporarySize = utils::hexToInt(dataHeader[4]);
         tokenReadLoc++;
         for (int j = 0; j < inputSize + outputSize + temporarySize; j++) {
-            disk->set(jobStartLoc + programSize + j,utils::hexToInt(tokens[tokenReadLoc][0]));
+            disk.set(jobStartLoc + programSize + j,utils::hexToInt(tokens[tokenReadLoc][0]));
             tokenReadLoc++;
         }
 
+        uint32_t totalSize = programSize + inputSize + outputSize + temporarySize;
 
-        pcbList->emplace_back();
-        PCB newPCB = (*pcbList->end());
-        newPCB.processId = jobId;
-        newPCB.programSize = programSize;
-        newPCB.priority = priority;
-        newPCB.diskAddress = jobStartLoc;
 
-        jobStartLoc += programSize + inputSize + outputSize + temporarySize;
+        pcbList.emplace_back(jobId, totalSize, Registers(), priority, jobStartLoc);
+
+        jobStartLoc += totalSize;
     }
 }

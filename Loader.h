@@ -13,7 +13,7 @@
 
 class Loader {
 public:
-    static void load(const std::string& programFile, Memory* disk, std::list<PCB> *pcbList);
+    static void load(const std::string& programFile, Memory& disk, std::vector<PCB>& pcbList);
 };
 
 
