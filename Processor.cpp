@@ -78,10 +78,20 @@ bool Processor::execute(uint32_t opcode, std::vector<uint32_t> &args) {
         }
         case 0x02: {
             std::cout << "Executed instruction: ST" << std::endl;
+            uint32_t addr = args[2];
+            if (args[1] != 0) { // assume that we will never use register #0 aka accumulator as index
+                addr = registers.getGenReg(args[1]);
+            }
+            ram->set(effectiveAddress(addr), registers.getGenReg(args[0]));
             break;
         }
         case 0x03: {
             std::cout << "Executed instruction: LW" << std::endl;
+            uint32_t addr = args[2];
+            if (args[1] != 0) { // assume that we will never use register #0 aka accumulator as index
+                addr = registers.getGenReg(args[1]);
+            }
+            registers.setGenReg(args[0], ram->get(effectiveAddress(addr)));
             break;
         }
         case 0x04: {
