@@ -10,6 +10,8 @@
 #include "Registers.h"
 
 struct PCB {
+    PCB() = default;
+
     PCB(uint32_t newProcessId, uint32_t newSize, Registers newRegisters, uint32_t newPriority, uint32_t newDiskAddress) {
         processId = newProcessId;
         size = newSize;
@@ -24,6 +26,5 @@ struct PCB {
     uint32_t priority{};
     uint32_t diskAddress{};
 };
-
 
 #endif //VIRTUALOPERATINGSYSTEM_PCB_H
