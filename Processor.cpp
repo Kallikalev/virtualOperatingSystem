@@ -10,6 +10,14 @@ Processor::Processor(Memory *ramPtr) {
     ram = ramPtr;
 }
 
+void Processor::setRegisters(Registers &regs) {
+    registers.copy(regs);
+}
+
+Registers &Processor::getRegisters() {
+    return registers;
+}
+
 bool Processor::computeCycle() {
     uint32_t instruction = ram->get(effectiveAddress(registers.getPC()));
     uint32_t type = utils::getBits(instruction, 30, 31);

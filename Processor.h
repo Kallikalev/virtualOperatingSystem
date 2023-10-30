@@ -25,7 +25,8 @@ private:
 public:
     explicit Processor(Memory* ramPtr);
     bool computeCycle();
-
+    Registers& getRegisters();
+    void setRegisters(Registers& regs);
 };
 
 

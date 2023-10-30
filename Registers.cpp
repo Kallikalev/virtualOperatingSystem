@@ -1,12 +1,7 @@
 #include <cstdint>
 #include "Registers.h"
 
-Registers::Registers() {
-    programCounter = 0;
-    indexRegister = 0;
-}
-
-Registers::Registers(Registers &other) {
+void Registers::copy(Registers &other) {
     for (int i = 0; i < sizeof(registers) / sizeof(uint32_t); i++) {
         registers[i] = other.getGenReg(i);
     }

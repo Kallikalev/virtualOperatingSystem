@@ -6,8 +6,7 @@
 
 class Registers {
 public:
-	explicit Registers();
-    Registers(Registers &other);
+    void copy(Registers &other);
 	uint32_t getGenReg(uint32_t index);
 	uint32_t getAcc();
 	uint32_t get0Reg();
@@ -19,8 +18,8 @@ public:
 	void setGenReg(uint32_t index, uint32_t val);
 private:
 	uint32_t registers[16]{};
-    uint32_t programCounter;
-    uint32_t indexRegister;
+    uint32_t programCounter{};
+    uint32_t indexRegister{};
 };
 
 #endif
