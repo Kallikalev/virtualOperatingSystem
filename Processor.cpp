@@ -189,26 +189,44 @@ bool Processor::execute(uint32_t opcode, std::vector<uint32_t> &args) {
         }
         case 0x15: {
             std::cout << "Executed instruction: BEQ" << std::endl;
+            if (registers.getGenReg(args[0]) == registers.getGenReg(args[1])) {
+                registers.setPC(args[2]);
+            }
             break;
         }
         case 0x16: {
             std::cout << "Executed instruction: BNE" << std::endl;
+            if (registers.getGenReg(args[0]) != registers.getGenReg(args[1])) {
+                registers.setPC(args[2]);
+            }
             break;
         }
         case 0x17: {
             std::cout << "Executed instruction: BEZ" << std::endl;
+            if (registers.getGenReg(args[0]) == 0) {
+                registers.setPC(args[2]);
+            }
             break;
         }
         case 0x18: {
             std::cout << "Executed instruction: BNZ" << std::endl;
+            if (registers.getGenReg(args[0]) != 0) {
+                registers.setPC(args[2]);
+            }
             break;
         }
         case 0x19: {
             std::cout << "Executed instruction: BGZ" << std::endl;
+            if (registers.getGenReg(args[0]) > 0) {
+                registers.setPC(args[2]);
+            }
             break;
         }
         case 0x1A: {
             std::cout << "Executed instruction: BLZ" << std::endl;
+            if (registers.getGenReg(args[0]) < 0) {
+                registers.setPC(args[2]);
+            }
             break;
         }
         default: {
