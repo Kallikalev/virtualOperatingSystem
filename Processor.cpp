@@ -174,6 +174,7 @@ bool Processor::execute(uint32_t opcode, std::vector<uint32_t> &args) {
         }
         case 0x14: {
             std::cout << "Executed instruction: JMP" << std::endl;
+            registers.setPC(args[0]);
             break;
         }
         case 0x15: {

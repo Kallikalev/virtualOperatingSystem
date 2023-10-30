@@ -11,7 +11,7 @@
 #include "Processor.h"
 
 int main() {
-    Memory disk(50);
+    Memory disk(55);
 
     std::list<PCB> pcbList;
 
