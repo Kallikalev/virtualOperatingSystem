@@ -26,6 +26,10 @@ void Memory::set(uint32_t index, uint32_t val) {
     data[index] = val;
 }
 
+uint32_t Memory::size() {
+    return data.size();
+}
+
 void Memory::dump() {
     for (uint32_t t : data) {
         std::cout << utils::intToHex(t) << std::endl;

@@ -15,7 +15,8 @@ private:
 public:
     explicit Memory(uint32_t size);
     uint32_t get(uint32_t index);
-    void set (uint32_t index, uint32_t val);
+    void set(uint32_t index, uint32_t val);
+    uint32_t size();
 
     void dump();
 };
