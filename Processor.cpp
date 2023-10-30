@@ -90,87 +90,78 @@ bool Processor::execute(uint32_t opcode, std::vector<uint32_t> &args) {
         }
         case 0x05: {
             std::cout << "Executed instruction: ADD" << std::endl;
-            // source registers are held in first two arguments
-            uint32_t val = registers.getGenReg(args[0]) + registers.getGenReg(args[1]);
-            registers.setGenReg(args[2], val); // destination register is held in argument 2
+            uint32_t val = registers.getGenReg(args[1]) + registers.getGenReg(args[2]);
+            registers.setGenReg(args[0], val);
             break;
         }
         case 0x06: {
             std::cout << "Executed instruction: SUB" << std::endl;
-            // source registers are held in first two arguments
-            uint32_t val = registers.getGenReg(args[0]) - registers.getGenReg(args[1]);
-            registers.setGenReg(args[2], val); // destination register is held in argument 2
+            uint32_t val = registers.getGenReg(args[1]) - registers.getGenReg(args[2]);
+            registers.setGenReg(args[0], val);
             break;
         }
         case 0x07: {
             std::cout << "Executed instruction: MUL" << std::endl;
-            // source registers are held in first two arguments
-            uint32_t val = registers.getGenReg(args[0]) * registers.getGenReg(args[1]);
-            registers.setGenReg(args[2], val); // destination register is held in argument 2
+            uint32_t val = registers.getGenReg(args[1]) * registers.getGenReg(args[2]);
+            registers.setGenReg(args[0], val);
             break;
         }
         case 0x08: {
             std::cout << "Executed instruction: DIV" << std::endl;
-            // source registers are held in first two arguments
-            uint32_t val = registers.getGenReg(args[0]) / registers.getGenReg(args[1]);
-            registers.setGenReg(args[2], val); // destination register is held in argument 2
+            uint32_t val = registers.getGenReg(args[1]) / registers.getGenReg(args[2]);
+            registers.setGenReg(args[0], val);
             break;
         }
         case 0x09: {
             std::cout << "Executed instruction: AND" << std::endl;
-            // source registers are held in first two arguments
-            uint32_t val = registers.getGenReg(args[0]) & registers.getGenReg(args[1]);
-            registers.setGenReg(args[2], val); // destination register is held in argument 2
+            uint32_t val = registers.getGenReg(args[1]) & registers.getGenReg(args[2]);
+            registers.setGenReg(args[0], val);
             break;
         }
         case 0x0A: {
             std::cout << "Executed instruction: OR" << std::endl;
-            // source registers are held in first two arguments
-            uint32_t val = registers.getGenReg(args[0]) | registers.getGenReg(args[1]);
-            registers.setGenReg(args[2], val); // destination register is held in argument 2
+            uint32_t val = registers.getGenReg(args[1]) | registers.getGenReg(args[2]);
+            registers.setGenReg(args[2], val);
             break;
         }
         case 0x0B: {
             std::cout << "Executed instruction: MOVI" << std::endl;
-            // argument 0 is base register, argument 2 is data to be transferred, argument 1 is empty
             registers.setGenReg(args[0],args[2]);
             break;
         }
         case 0x0C: {
             std::cout << "Executed instruction: ADDI" << std::endl;
-            // argument 0 is base register, argument 2 is data to be added, argument 1 is empty
             uint32_t val = registers.getGenReg(args[0]) + args[2];
             registers.setGenReg(args[0], val);
             break;
         }
         case 0x0D: {
             std::cout << "Executed instruction: MULI" << std::endl;
-            // argument 0 is base register, argument 2 is data to be multiplied, argument 1 is empty
             uint32_t val = registers.getGenReg(args[0]) * args[2];
             registers.setGenReg(args[0], val);
             break;
         }
         case 0x0E: {
             std::cout << "Executed instruction: DIVI" << std::endl;
-            // argument 0 is base register, argument 2 is data to be divided, argument 1 is empty
             uint32_t val = registers.getGenReg(args[0]) / args[2];
             registers.setGenReg(args[0], val);
             break;
         }
         case 0x0F: {
             std::cout << "Executed instruction: LDI" << std::endl;
+            registers.setGenReg(args[0],args[2]);
             break;
         }
         case 0x10: {
             std::cout << "Executed instruction: SLT" << std::endl;
-            uint32_t val = registers.getGenReg(args[0]) < registers.getGenReg(args[1]); // Boolean condition returns 0 or 1
-            registers.setGenReg(args[2], val);
+            uint32_t val = registers.getGenReg(args[1]) < registers.getGenReg(args[2]); // Boolean condition returns 0 or 1
+            registers.setGenReg(args[0], val);
             break;
         }
         case 0x11: {
             std::cout << "Executed instruction: SLTI" << std::endl;
-            uint32_t val = registers.getGenReg(args[0]) < args[2]; // Boolean condition returns 0 or 1
-            registers.setGenReg(args[1], val);
+            uint32_t val = registers.getGenReg(args[1]) < args[2]; // Boolean condition returns 0 or 1
+            registers.setGenReg(args[0], val);
             break;
         }
         case 0x12: {
