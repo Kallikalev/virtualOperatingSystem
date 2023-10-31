@@ -12,19 +12,14 @@
 struct PCB {
     PCB() = default;
 
-    PCB(uint32_t newProcessId, uint32_t newSize, Registers newRegisters, uint32_t newPriority, uint32_t newDiskAddress) {
-        processId = newProcessId;
-        size = newSize;
-        registers = newRegisters;
-        priority = newPriority;
-        diskAddress = newDiskAddress;
-    }
+    PCB(uint32_t processId, uint32_t size, Registers registers, uint32_t priority, uint32_t diskAddress) : processId(processId), size(size), registers(registers), priority(priority), diskAddress(diskAddress) {}
 
     uint32_t processId{};
     uint32_t size{};
     Registers registers;
     uint32_t priority{};
     uint32_t diskAddress{};
+    uint32_t ramAddress{};
 };
 
 #endif //VIRTUALOPERATINGSYSTEM_PCB_H

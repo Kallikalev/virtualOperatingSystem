@@ -10,37 +10,28 @@
 #include "PCB.h"
 #include "Processor.h"
 #include "ContextSwitcher.h"
+#include "Scheduler.h"
 
 int main() {
-    Memory disk(36);
+    Memory disk(2048);
+    Memory ram(1024);
+    Processor cpu(&ram);
 
+
+    Scheduler scheduler(disk, ram);
     std::vector<PCB> pcbList;
 
     Loader::load("testJobs.txt", disk, pcbList);
+    for (PCB& pcb : pcbList) {
+        scheduler.newJob(pcb);
+    }
 
-    pcbList[0].registers.setIR(pcbList[0].diskAddress); // temp, to be handled by scheduler
-    pcbList[1].registers.setIR(pcbList[1].diskAddress); // temp, to be handled by scheduler
+    scheduler.getReady();
 
-    Processor cpu(&disk);
-//     Running CPU directly on disk, since scheduler and dispatcher don't exist yet
-
-
-
-    ContextSwitcher::switchIn(cpu, pcbList.front());
-
-    while (!cpu.computeCycle());
-
-    std::cout << "Sum of int array: " << disk.get(17) << std::endl;
-
-    ContextSwitcher::switchOut(cpu, pcbList[0]);
-
-
-
-    ContextSwitcher::switchIn(cpu, pcbList[1]);
-
-    while (!cpu.computeCycle());
-
-    std::cout << "Sum of int array: " << disk.get(35) << std::endl;
+    while (scheduler.dispatchJob(cpu)) {
+        while (!cpu.computeCycle());
+        scheduler.finishJob(cpu);
+    }
 
     return 0;
 }
