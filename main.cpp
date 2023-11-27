@@ -2,21 +2,18 @@
 // Created by Kalev Martinson on 9/5/23.
 //
 
-#include <iostream>
 #include <list>
 #include "Memory.h"
 #include "utils.cpp"
 #include "Loader.h"
 #include "PCB.h"
 #include "Processor.h"
-#include "ContextSwitcher.h"
 #include "Scheduler.h"
 
 int main() {
     Memory disk(2048);
     Memory ram(1024);
     Processor cpu(&ram);
-
 
     Scheduler scheduler(disk, ram);
     std::vector<PCB> pcbList;

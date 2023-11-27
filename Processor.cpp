@@ -8,10 +8,15 @@
 
 Processor::Processor(Memory *ramPtr) {
     ram = ramPtr;
+    pageTable = std::vector<uint32_t>();
 }
 
 void Processor::setRegisters(Registers &regs) {
     registers.copy(regs);
+}
+
+void Processor::setPageTable(std::vector<uint32_t> &pageTableRef) {
+    pageTable = pageTableRef;
 }
 
 Registers &Processor::getRegisters() {
@@ -19,7 +24,7 @@ Registers &Processor::getRegisters() {
 }
 
 bool Processor::computeCycle() {
-    uint32_t instruction = ram->get(effectiveAddress(registers.getPC()));
+    uint32_t instruction = ram->get(Memory::depageAddress(pageTable, registers.getPC()));
     uint32_t type = utils::getBits(instruction, 30, 31);
     uint32_t opcode = utils::getBits(instruction, 24, 29);
     std::vector<uint32_t> args;
@@ -46,10 +51,6 @@ bool Processor::computeCycle() {
     }
     registers.setPC(registers.getPC() + 1);
     return execute(opcode, args);
-}
-
-uint32_t Processor::effectiveAddress(uint32_t addr) {
-    return addr + registers.getIR();
 }
 
 void Processor::getArithmeticArgs(uint32_t instruction, std::vector<uint32_t> &args) {
@@ -90,7 +91,8 @@ bool Processor::execute(uint32_t opcode, std::vector<uint32_t> &args) {
             if (args[1] != 0) { // assume that we will never use register #0 aka accumulator as index
                 addr = registers.getGenReg(args[1]);
             }
-            ram->set(effectiveAddress(addr), registers.getGenReg(args[0]));
+
+            ram->set(Memory::depageAddress(pageTable, addr), registers.getGenReg(args[0]));
             break;
         }
         case 0x03: {
@@ -99,7 +101,7 @@ bool Processor::execute(uint32_t opcode, std::vector<uint32_t> &args) {
             if (args[1] != 0) { // assume that we will never use register #0 aka accumulator as index
                 addr = registers.getGenReg(args[1]);
             }
-            registers.setGenReg(args[0], ram->get(effectiveAddress(addr)));
+            registers.setGenReg(args[0], ram->get(Memory::depageAddress(pageTable, addr)));
             break;
         }
         case 0x04: {

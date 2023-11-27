@@ -12,8 +12,7 @@ class Processor {
 private:
     Memory* ram;
     Registers registers;
-
-    uint32_t effectiveAddress(uint32_t addr);
+    std::vector<uint32_t> pageTable;
 
     static void getArithmeticArgs(uint32_t instruction, std::vector<uint32_t> &args);
     static void getConditionalArgs(uint32_t instruction, std::vector<uint32_t> &args);
@@ -27,6 +26,7 @@ public:
     bool computeCycle();
     Registers& getRegisters();
     void setRegisters(Registers& regs);
+    void setPageTable(std::vector<uint32_t> &pageTableRef);
 };
 
 

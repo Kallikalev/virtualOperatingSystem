@@ -35,6 +35,7 @@ void Loader::load(const std::string& fileName, Memory& disk, std::vector<PCB>& p
         uint32_t priority = utils::hexToInt(jobHeader[4]);
         tokenReadLoc++;
         for (int j = 0; j < programSize; j++) {
+
             disk.set(jobStartLoc + j,utils::hexToInt(tokens[tokenReadLoc][0]));
             tokenReadLoc++;
         }
@@ -51,7 +52,7 @@ void Loader::load(const std::string& fileName, Memory& disk, std::vector<PCB>& p
         uint32_t totalSize = programSize + inputSize + outputSize + temporarySize;
 
 
-        pcbList.emplace_back(jobId, totalSize, Registers(), priority, jobStartLoc);
+        pcbList.emplace_back(jobId, totalSize, Registers(), priority, jobStartLoc, std::vector<uint32_t>());
 
         jobStartLoc += totalSize;
     }
