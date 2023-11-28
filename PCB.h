@@ -23,7 +23,6 @@ struct PCB {
     Registers registers;
     uint32_t priority{};
     uint32_t diskAddress{};
-    uint32_t ramAddress{};
     std::vector<uint32_t> pageTable{};
 };
 

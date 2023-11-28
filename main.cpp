@@ -18,7 +18,7 @@ int main() {
     Scheduler scheduler(disk, ram);
     std::vector<PCB> pcbList;
 
-    Loader::load("testJobs.txt", disk, pcbList);
+    Loader::load("manyJobs.txt", disk, pcbList);
     for (PCB& pcb : pcbList) {
         scheduler.newJob(pcb);
     }
