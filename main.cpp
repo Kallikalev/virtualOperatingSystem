@@ -12,7 +12,7 @@
 
 int main() {
     Memory disk(2048);
-    Memory ram(1024);
+    Memory ram(24);
     Processor cpu(&ram);
 
     Scheduler scheduler(disk, ram);
@@ -23,12 +23,14 @@ int main() {
         scheduler.newJob(pcb);
     }
 
-    scheduler.getReady();
 
-    while (scheduler.dispatchJob(cpu)) {
+    while (!scheduler.allFinished()) {
+        scheduler.getReady();
+        scheduler.dispatchJob(cpu);
         while (cpu.computeCycle());
         scheduler.finishJob(cpu);
     }
+
 
     return 0;
 }

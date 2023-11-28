@@ -16,8 +16,9 @@ public:
     Scheduler(Memory& disk, Memory& ram);
     void newJob(PCB &job);
     void getReady();
-    bool dispatchJob(Processor& cpu);
+    void dispatchJob(Processor& cpu);
     void finishJob(Processor &cpu);
+    bool allFinished();
 private:
     Memory& disk;
     Memory& ram;

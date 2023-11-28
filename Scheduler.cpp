@@ -31,22 +31,20 @@ void Scheduler::getReady() {
         job.ramAddress = ramWriteLoc;
         job.registers.setIR(ramWriteLoc);
         for (int i = 0; i < job.size; i++) {
-
             ram.set(Memory::depageAddress(job.pageTable, i), disk.get(job.diskAddress + i));
         }
         ramWriteLoc += numPagesNeeded * Memory::PAGE_SIZE;
     }
 }
 
-bool Scheduler::dispatchJob(Processor& cpu) {
-    if (readyQueue.empty()) {return false;}
+void Scheduler::dispatchJob(Processor& cpu) {
+    if (readyQueue.empty()) {return;}
     if (runningJob != nullptr) {
         ContextSwitcher::switchOut(cpu, *runningJob);
     }
     runningJob = readyQueue.front();
     readyQueue.pop();
     ContextSwitcher::switchIn(cpu, *runningJob);
-    return true;
 }
 
 void Scheduler::finishJob(Processor &cpu) {
@@ -56,5 +54,13 @@ void Scheduler::finishJob(Processor &cpu) {
         disk.set(runningJob->diskAddress + i, ram.get(Memory::depageAddress(runningJob->pageTable, i)));
         ram.set(runningJob->ramAddress + i, 0);
     }
+    while (!runningJob->pageTable.empty()) {
+        ram.freePage(runningJob->pageTable.back());
+        runningJob->pageTable.pop_back();
+    }
     runningJob = nullptr;
+}
+
+bool Scheduler::allFinished() {
+    return newQueue.empty() and readyQueue.empty() and runningJob == nullptr;
 }
