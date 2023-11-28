@@ -12,7 +12,7 @@
 
 int main() {
     Memory disk(2048);
-    Memory ram(24);
+    Memory ram(64);
     Processor cpu(&ram);
 
     Scheduler scheduler(disk, ram);
