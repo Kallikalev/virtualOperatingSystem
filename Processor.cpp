@@ -187,7 +187,7 @@ bool Processor::execute(uint32_t opcode, std::vector<uint32_t> &args) {
         }
         case 0x12: {
             std::cout << "Executed instruction: HLT" << std::endl;
-            return true;
+            return false;
         }
         case 0x13: {
             std::cout << "Executed instruction: NOP" << std::endl;
@@ -244,5 +244,5 @@ bool Processor::execute(uint32_t opcode, std::vector<uint32_t> &args) {
             throw std::invalid_argument("Opcode: " + std::to_string(opcode) + " does not exist");
         }
     }
-    return false;
+    return true;
 }

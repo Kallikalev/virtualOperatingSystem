@@ -26,7 +26,7 @@ int main() {
     scheduler.getReady();
 
     while (scheduler.dispatchJob(cpu)) {
-        while (!cpu.computeCycle());
+        while (cpu.computeCycle());
         scheduler.finishJob(cpu);
     }
 
