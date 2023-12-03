@@ -16,8 +16,8 @@ public:
     Scheduler(Memory& disk, Memory& ram);
     void newJob(PCB &job);
     void getReady();
-    void dispatchJob(Processor& cpu);
-    void finishJob(Processor &cpu);
+    void dispatchJobs(std::vector<Processor>& cpu);
+    void finishJobs(std::vector<Processor>& cpu);
     bool allFinished();
 private:
     Memory& disk;
@@ -25,7 +25,7 @@ private:
     std::queue<PCB*> newQueue;
     std::queue<PCB*> readyQueue;
     std::queue<PCB*> finishedQueue;
-    PCB* runningJob{};
+    std::vector<PCB*> runningJobs;
 };
 
 

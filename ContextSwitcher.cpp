@@ -11,4 +11,5 @@ void ContextSwitcher::switchOut(Processor &cpu, PCB &oldPCB) {
 void ContextSwitcher::switchIn(Processor &cpu, PCB &newPCB) {
     cpu.setRegisters(newPCB.registers);
     cpu.setPageTable(newPCB.pageTable);
+    cpu.free = false;
 }

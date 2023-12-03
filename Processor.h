@@ -27,6 +27,7 @@ public:
     Registers& getRegisters();
     void setRegisters(Registers& regs);
     void setPageTable(std::vector<uint32_t> &pageTableRef);
+    bool free = true;
 };
 
 
